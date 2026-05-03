@@ -1,0 +1,148 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --land: #8cc716;
+  --land-light: #b8e04a;
+  --land-dark: #6a9c10;
+  --sea: #1895e1;
+  --sea-dark: #0f6aad;
+  --sea-deep: #0a4a7a;
+  --wave: #9fdbf5;
+  --wave-light: #d0effa;
+  --brown: #b06525;
+  --brown-dark: #8a4e1e;
+  --white: #ffffff;
+  --text-dark: #1a3a1a;
+  --sand: #f5e6c8;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Nunito', 'Segoe UI', sans-serif;
+  background: var(--sea);
+  color: var(--white);
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Prevent text selection on interactive elements */
+button {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* ── Animations ── */
+@keyframes wave {
+  0%   { transform: translateX(0) scaleY(1); }
+  50%  { transform: translateX(-30px) scaleY(1.05); }
+  100% { transform: translateX(0) scaleY(1); }
+}
+
+@keyframes wave2 {
+  0%   { transform: translateX(0) scaleY(1); }
+  50%  { transform: translateX(30px) scaleY(0.95); }
+  100% { transform: translateX(0) scaleY(1); }
+}
+
+@keyframes float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pop {
+  0%   { transform: scale(0.5); opacity: 0; }
+  70%  { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes fadeInDown {
+  0%   { opacity: 0; transform: translateY(-18px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  0%   { opacity: 0; transform: translateY(18px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(140, 199, 22, 0.5); }
+  70%  { box-shadow: 0 0 0 10px rgba(140, 199, 22, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(140, 199, 22, 0); }
+}
+
+@keyframes bubble {
+  0%   { transform: translateY(0) scale(1); opacity: 0.6; }
+  100% { transform: translateY(-120px) scale(1.4); opacity: 0; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Wave background layers ── */
+.wave-layer {
+  position: fixed;
+  left: -50px;
+  right: -50px;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 50% 50% 0 0;
+}
+
+.wave-layer-1 {
+  bottom: -10px;
+  height: 100px;
+  background: var(--wave);
+  opacity: 0.2;
+  animation: wave 5s ease-in-out infinite;
+}
+
+.wave-layer-2 {
+  bottom: -5px;
+  height: 70px;
+  background: var(--wave-light);
+  opacity: 0.12;
+  animation: wave2 7s ease-in-out infinite;
+}
+
+/* ── Global scrollbar styling ── */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(159, 219, 245, 0.3);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(159, 219, 245, 0.5);
+}
+
+/* ── Responsive font scale ── */
+@media (max-width: 400px) {
+  html { font-size: 15px; }
+}
+
+@media (max-width: 340px) {
+  html { font-size: 14px; }
+}

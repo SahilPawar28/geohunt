@@ -1,0 +1,244 @@
+/* ── Floating GuessMap Overlay ── */
+.guess-overlay {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  width: 280px;
+  height: 240px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(10, 40, 70, 0.92);
+  border: 2px solid rgba(159, 219, 245, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(159, 219, 245, 0.1);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              bottom 0.3s ease,
+              right 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+.guess-overlay--expanded {
+  width: min(560px, calc(100vw - 32px));
+  height: min(460px, calc(100vh - 100px));
+  bottom: 50%;
+  right: 50%;
+  transform: translate(50%, 50%);
+  border-radius: 20px;
+}
+
+/* ── Header ── */
+.guess-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(10, 74, 122, 0.9);
+  border-bottom: 1px solid rgba(159, 219, 245, 0.2);
+  flex-shrink: 0;
+}
+
+.guess-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.guess-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(159, 219, 245, 0.4);
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+
+.guess-dot--active {
+  background: #8cc716;
+  box-shadow: 0 0 6px rgba(140, 199, 22, 0.7);
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 4px rgba(140, 199, 22, 0.7); }
+  50%       { box-shadow: 0 0 10px rgba(140, 199, 22, 0.9); }
+}
+
+.guess-status-text {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--wave);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}
+
+.guess-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(159, 219, 245, 0.2);
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--wave);
+  transition: background 0.2s, transform 0.15s;
+  flex-shrink: 0;
+}
+
+.guess-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: scale(1.1);
+}
+
+.guess-toggle-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ── Map Area ── */
+.guess-map-area {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.guess-map-area--disabled {
+  cursor: not-allowed;
+}
+
+.guess-disabled-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(10, 40, 70, 0.6);
+  backdrop-filter: blur(2px);
+  color: var(--wave);
+  font-weight: 700;
+  font-size: 0.85rem;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.guess-disabled-overlay svg {
+  width: 32px;
+  height: 32px;
+  opacity: 0.7;
+}
+
+/* ── Footer ── */
+.guess-footer {
+  display: flex;
+  gap: 6px;
+  padding: 7px 8px;
+  background: rgba(10, 40, 70, 0.95);
+  border-top: 1px solid rgba(159, 219, 245, 0.15);
+  flex-shrink: 0;
+}
+
+.guess-clear-btn {
+  padding: 7px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  border: 1px solid rgba(159, 219, 245, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--wave);
+  cursor: pointer;
+  transition: background 0.18s;
+  white-space: nowrap;
+}
+
+.guess-clear-btn:hover {
+  background: rgba(255, 80, 80, 0.2);
+  border-color: rgba(255, 80, 80, 0.4);
+  color: #ff8a8a;
+}
+
+.guess-submit-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  font-family: 'Nunito', sans-serif;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.18s, opacity 0.18s, box-shadow 0.18s;
+  white-space: nowrap;
+}
+
+.guess-submit-btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.guess-submit-btn:not(:disabled) {
+  background: linear-gradient(135deg, var(--land) 0%, var(--land-light) 100%);
+  color: var(--text-dark);
+  box-shadow: 0 3px 10px rgba(140, 199, 22, 0.4);
+}
+
+.guess-submit-btn:not(:disabled):hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 5px 16px rgba(140, 199, 22, 0.5);
+}
+
+.guess-submit-btn:not(:disabled):active {
+  transform: scale(0.97);
+}
+
+.guess-submit-btn:disabled {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(159, 219, 245, 0.5);
+  cursor: not-allowed;
+}
+
+/* ── Leaflet overrides inside overlay ── */
+.guess-map-area .leaflet-control-zoom {
+  margin: 6px;
+}
+
+.guess-map-area .leaflet-control-attribution {
+  font-size: 9px;
+  opacity: 0.6;
+}
+
+/* ── Mobile: full-width bottom strip instead of corner ── */
+@media (max-width: 500px) {
+  .guess-overlay {
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 220px;
+    border-radius: 16px 16px 0 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .guess-overlay--expanded {
+    height: 65vh;
+    bottom: 0;
+    right: 0;
+    transform: none;
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+  }
+}
